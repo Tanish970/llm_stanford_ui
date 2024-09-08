@@ -1,98 +1,97 @@
-import React, { useState } from 'react';
-import { Select, Slider, Typography } from 'antd';
+import React from 'react';
+import { Select, Typography, Divider } from 'antd';
 
 const { Text } = Typography;
 
-const editorOptions = [
+const LLMOptions = [
+  { value: 'Llama', label: 'Llama' },
   { value: 'claude-3.5', label: 'claude-3.5' },
   { value: 'gpt-4', label: 'gpt-4' },
   { value: 'google-gemini', label: 'google-gemini' },
 ];
 
-const qaOptions = [
-  { value: 'claude-3.5', label: 'claude-3.5' },
-  { value: 'gpt-4', label: 'gpt-4' },
-  { value: 'google-gemini', label: 'google-gemini' },
+const ToneOptions = [
+  { value: 'Formal', label: 'Formal' },
+  { value: 'Neutral', label: 'Neutral' },
+  { value: 'Friendly', label: 'Friendly' },
 ];
 
-const authorOptions = [
-  { value: 'Author-1', label: 'Author-1' },
-  { value: 'Author-2', label: 'Author-2' },
-  { value: 'Author-3', label: 'Author-3' },
+const JurisdictionOptions = [
+  { value: 'California', label: 'California' },
+  { value: 'Quebec', label: 'Quebec' },
 ];
 
-// Slider Component
-interface IconSliderProps {
-  max: number;
-  min: number;
-  value: number;
-  onChange: (value: number) => void;
+interface SidebarProps {
+  editorLLM: string;
+  setEditorLLM: (value: string) => void;
+  selectedTone: string;
+  setSelectedTone: (value: string) => void;
+  selectedJurisdiction: string;
+  setSelectedJurisdiction: (value: string) => void;
 }
 
-const IconSlider: React.FC<IconSliderProps> = ({ max, min, value, onChange }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  editorLLM,
+  setEditorLLM,
+  selectedTone,
+  setSelectedTone,
+  selectedJurisdiction,
+  setSelectedJurisdiction,
+}) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Slider
-        min={min}
-        max={max}
-        value={value}
-        onChange={onChange}
-        style={{ width: '100%' }}
-      />
-    </div>
-  );
-};
+    <div style={{
+      padding: '20px 16px',
+      backgroundColor: '#002140',
+      color: '#fff',
+      height: '100vh',
+      width: '300px',
+      boxShadow: '2px 0 8px rgba(0, 0, 0, 0.15)',
+      borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+      overflowY: 'auto'
+    }}>
+      {/* Title */}
+      <Text style={{ fontSize: '20px', color: '#f0f2f5', fontWeight: 'bold', display: 'block', marginBottom: '40px' }}>
+        Configuration Panel
+      </Text>
 
-// Sidebar Component
-const Sidebar: React.FC = () => {
-  const [editorLLM, setEditorLLM] = useState('claude-3.5');
-  const [qaLLM, setQaLLM] = useState('claude-3.5');
-  const [refAuthor, setRefAuthor] = useState('Author-1');
-  const [revisionTimes, setRevisionTimes] = useState(1);
-
-  return (
-    <div style={{ padding: '16px', backgroundColor: '#001529', color: '#fff', height: '100vh', overflowY: 'auto' }}>
       {/* Editor LLM Select */}
       <div style={{ marginBottom: '40px' }}>
-        <Text style={{ color: '#fff', marginBottom: '8px', display: 'block' }}>Choose your Editor LLM:</Text>
+        <Text style={{ color: '#a0d911', fontSize: '16px', marginBottom: '12px', display: 'block' }}>Editor LLM</Text>
         <Select
           value={editorLLM}
-          style={{ width: '100%' }}
+          style={{ width: '100%', borderRadius: '8px' }}
           onChange={setEditorLLM}
-          options={editorOptions}
+          options={LLMOptions}
         />
         <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected: {editorLLM}</Text>
       </div>
 
-      {/* QA LLM Select */}
+      <Divider style={{ borderColor: '#f0f2f5', marginBottom: '40px' }} />
+
+      {/* Tone Select */}
       <div style={{ marginBottom: '40px' }}>
-        <Text style={{ color: '#fff', marginBottom: '8px', display: 'block' }}>Choose your QA LLM:</Text>
+        <Text style={{ color: '#a0d911', fontSize: '16px', marginBottom: '12px', display: 'block' }}>Tone</Text>
         <Select
-          value={qaLLM}
-          style={{ width: '100%' }}
-          onChange={setQaLLM}
-          options={qaOptions}
+          value={selectedTone}
+          style={{ width: '100%', borderRadius: '8px' }}
+          onChange={setSelectedTone}
+          options={ToneOptions}
         />
-        <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected: {qaLLM}</Text>
+        <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected Tone: {selectedTone}</Text>
       </div>
 
-      {/* Reference Author Select */}
-      <div style={{ marginBottom: '40px' }}>
-        <Text style={{ color: '#fff', marginBottom: '8px', display: 'block' }}>Choose the reference author:</Text>
-        <Select
-          value={refAuthor}
-          style={{ width: '100%' }}
-          onChange={setRefAuthor}
-          options={authorOptions}
-        />
-        <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected: {refAuthor}</Text>
-      </div>
+      <Divider style={{ borderColor: '#f0f2f5', marginBottom: '40px' }} />
 
-      {/* Revision Slider */}
-      <div style={{ marginTop: '40px' }}>
-        <p style={{ color: '#fff' }}>Select the maximum number of times to execute the revision:</p>
-        <IconSlider min={1} max={3} value={revisionTimes} onChange={setRevisionTimes} />
-        <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected Revision Count: {revisionTimes}</Text>
+      {/* Jurisdiction Select */}
+      <div style={{ marginBottom: '40px' }}>
+        <Text style={{ color: '#a0d911', fontSize: '16px', marginBottom: '12px', display: 'block' }}>Jurisdiction</Text>
+        <Select
+          value={selectedJurisdiction}
+          style={{ width: '100%', borderRadius: '8px' }}
+          onChange={setSelectedJurisdiction}
+          options={JurisdictionOptions}
+        />
+        <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected Jurisdiction: {selectedJurisdiction}</Text>
       </div>
     </div>
   );
