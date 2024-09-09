@@ -4,10 +4,7 @@ import { Select, Typography, Divider } from 'antd';
 const { Text } = Typography;
 
 const LLMOptions = [
-  { value: 'Llama', label: 'Llama' },
   { value: 'claude-3.5', label: 'claude-3.5' },
-  { value: 'gpt-4', label: 'gpt-4' },
-  { value: 'google-gemini', label: 'google-gemini' },
 ];
 
 const ToneOptions = [
@@ -40,15 +37,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div style={{
+      display: 'flex',         // Added flex for layout control
+      flexDirection: 'column', // Ensure column layout
       padding: '20px 16px',
       backgroundColor: '#002140',
       color: '#fff',
-      height: '100vh',
+      height: '100vh', // Ensures the sidebar occupies full height
       width: '300px',
       boxShadow: '2px 0 8px rgba(0, 0, 0, 0.15)',
       borderRight: '1px solid rgba(255, 255, 255, 0.1)',
-      overflowY: 'auto'
+      overflowY: 'auto', // Adds scrolling when content overflows
     }}>
+    
       {/* Title */}
       <Text style={{ fontSize: '20px', color: '#f0f2f5', fontWeight: 'bold', display: 'block', marginBottom: '40px' }}>
         Configuration Panel
@@ -80,9 +80,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected Tone: {selectedTone}</Text>
       </div>
 
-      <Divider style={{ borderColor: '#f0f2f5', marginBottom: '40px' }} />
+      {/* <Divider style={{ borderColor: '#f0f2f5', marginBottom: '40px' }} /> */}
 
-      {/* Jurisdiction Select */}
+      {/* Jurisdiction Select
       <div style={{ marginBottom: '40px' }}>
         <Text style={{ color: '#a0d911', fontSize: '16px', marginBottom: '12px', display: 'block' }}>Jurisdiction</Text>
         <Select
@@ -92,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           options={JurisdictionOptions}
         />
         <Text style={{ color: '#fff', marginTop: '8px', display: 'block' }}>Selected Jurisdiction: {selectedJurisdiction}</Text>
-      </div>
+      </div> */}
     </div>
   );
 };
