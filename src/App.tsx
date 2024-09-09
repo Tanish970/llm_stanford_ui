@@ -12,7 +12,7 @@ const { TextArea } = Input;
 const App: React.FC = () => {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [draftText, setDraftText] = useState('');
-  const [editorLLM, setEditorLLM] = useState('Llama');
+  const [editorLLM, setEditorLLM] = useState('claude-3.5');
   const [selectedTone, setSelectedTone] = useState('Neutral');
   const [selectedJurisdiction, setSelectedJurisdiction] = useState('California');
   const [outputMessage, setOutputMessage] = useState('');
